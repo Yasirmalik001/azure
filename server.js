@@ -10,7 +10,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN, // Set this in your .env file for production
+    origin: process.env.CORS_ORIGIN,
   })
 );
 app.use(bodyParser.json());
@@ -43,8 +43,6 @@ async function submitToZoho(data) {
     throw new Error("Error submitting to Zoho");
   }
 }
-
-// Endpoint to receive data from the form
 app.post("/submit-form", async (req, res) => {
   const {
     firstName,
