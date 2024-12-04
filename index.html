@@ -48,12 +48,12 @@
               const data = await response.json();
               alert(data.message);
             } else {
-              const errorData = await response.json(); // Assuming the server sends an error message
-              alert(errorData.message || "Failed to submit the form");
+              const errorData = await response.text(); // Get response text if it cannot be parsed as JSON
+              alert(`Failed to submit the form: ${errorData}`);
             }
           } catch (error) {
             console.error("Error submitting the form:", error);
-            alert("There was an error submitting the form.");
+            alert(`Network error: ${error.message}`);
           }
         });
     </script>
