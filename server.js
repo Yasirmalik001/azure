@@ -70,7 +70,7 @@ async function submitToZoho(data) {
 }
 
 // Endpoint to Receive Data from Shopify Form
-app.post("/submit-form", async (req, res) => {
+app.post("/", async (req, res) => {
   const formData = req.body;
 
   console.log("Received Form Data: ", formData);
