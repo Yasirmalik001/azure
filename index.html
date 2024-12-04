@@ -19,17 +19,11 @@
       ></textarea>
       <button type="submit">Submit</button>
     </form>
-    <p>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum
-      consectetur dolor fugiat harum quo et ab, iste quos nesciunt maxime ipsum
-      cumque blanditiis vero tempore rerum ut eius. Deleniti, suscipit!
-    </p>
     <script>
       document
         .getElementById("zohoForm")
         .addEventListener("submit", async function (e) {
           e.preventDefault();
-
           const formData = {
             firstName: e.target.firstName.value,
             lastName: e.target.lastName.value,
@@ -50,14 +44,15 @@
               }
             );
 
-            // Check if response is successful
             if (response.ok) {
               const data = await response.json();
               alert(data.message);
             } else {
-              alert("Failed to submit the form");
+              const errorData = await response.json(); // Assuming the server sends an error message
+              alert(errorData.message || "Failed to submit the form");
             }
           } catch (error) {
+            console.error("Error submitting the form:", error);
             alert("There was an error submitting the form.");
           }
         });
