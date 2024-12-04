@@ -32,16 +32,13 @@
           };
 
           try {
-            const response = await fetch(
-              "https://zoho-one.vercel.app/submit-form",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-              }
-            );
+            const response = await fetch("https://zoho-one.vercel.app", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            });
 
             if (response.ok) {
               const data = await response.json();
