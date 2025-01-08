@@ -2,7 +2,6 @@ require("dotenv").config(); // Load environment variables from .env into process
 
 const express = require("express"); // Import Express framework
 const axios = require("axios"); // Import Axios for HTTP requests
-const cors = require("cors"); // Import CORS
 const morgan = require("morgan"); // Import Morgan for logging
 
 const app = express(); // Create Express application
@@ -12,11 +11,13 @@ app.use(morgan("dev")); // Logs HTTP requests to the console
 app.use(express.json()); // Parses JSON body
 app.use(express.urlencoded({ extended: true })); // Parses URL-encoded data
 
-// ✅ CORS Configuration - Allow Specific Domains
+const cors = require("cors");
+
 const allowedOrigins = [
   "https://vehicles.ridefox.com",
   "http://localhost:3000",
-];
+]; // Add your frontend URLs
+
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -30,6 +31,9 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+// ✅ Ensure Express Responds to Preflight Requests
+app.options("*", cors());
 
 // ✅ Environment Variables - Ensure These Are Set in Azure
 const apiKey = process.env.ZOHO_API_KEY;
@@ -65,7 +69,7 @@ async function submitToZoho(data) {
     });
 
     const response = await axios.post(
-      "https://www.zohoapis.com/crm/v2/functions/inbound_lead/actions/execute",
+      "https://www.zohoapis.com/crm/v2/functions/inbound_lead/actions/execute?auth_type=apikey&zapikey=1003.18845a2854d8dc5f15927993eaf46472.1854d4111934cca38863a9b173fd80e8",
       {
         data: [
           {
